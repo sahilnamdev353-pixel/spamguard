@@ -48,11 +48,10 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # 3. Model banao aur train karo
 model = make_pipeline(
-    TfidfVectorizer(stop_words="english", lowercase=True),
-    MultinomialNB(),
+    TfidfVectorizer(stop_words="english", lowercase=True, ngram_range=(1, 2), sublinear_tf=True),
+    MultinomialNB(alpha=0.05),
 )
 model.fit(X_train, y_train)
-
 # 4. Accuracy check karo
 pred = model.predict(X_test)
 print("Accuracy:", round(accuracy_score(y_test, pred) * 100, 2), "%")

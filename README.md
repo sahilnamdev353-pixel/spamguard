@@ -1,7 +1,7 @@
 # SpamGuard: Spam Email & SMS Detector
 
 A Flask web app that classifies emails and SMS messages as spam or normal using machine learning
-(TF-IDF + Multinomial Naive Bayes). Test accuracy: 96.9%, spam precision: 1.00, spam recall: 0.77.
+(TF-IDF + Multinomial Naive Bayes). Test accuracy: 99.0%, spam precision: 0.99, spam recall: 0.94.
 Users can register, log in, check messages, see the words that indicate spam, and review their history.
 
 ## Features
