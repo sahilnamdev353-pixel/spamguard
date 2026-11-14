@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}About SpamGuard{% endblock %}
+{% block body %}
+<article class="page"><h1>About SpamGuard</h1>
+<p>SpamGuard is a spam detector for emails and SMS messages, built as a college project with Python and machine learning.</p>
+<h2>How it works</h2>
+<ol><li>You paste a message.</li><li>The text is converted to numbers with TF-IDF, which scores how important each word is.</li><li>A Naive Bayes model, trained on thousands of labelled messages, estimates the chance of spam.</li><li>You see the verdict, a confidence score and the words that pushed it towards spam.</li></ol>
+<h2>What we store</h2>
+<p>Your name, email, a hashed password (never the password itself), and each message you check with its result. You can delete any check from History.</p>
+<h2>Limits</h2>
+<p>The model was trained mostly on English SMS data. Hindi and Hinglish messages may be judged less accurately, and no model is right every time.</p>
+<h2>Built with</h2>
+<p>Python, Flask, SQLite, scikit-learn, pandas, joblib.</p></article>
+{% endblock %}

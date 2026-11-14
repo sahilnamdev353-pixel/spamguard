@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block title %}SpamGuard: check emails and SMS for spam{% endblock %}
+{% block body %}
+<section class="hero">
+<div><h1>Know if a message is spam before you click.</h1>
+<p class="lead">Paste an email or SMS. SpamGuard tells you if it looks like spam and marks the words that gave it away.</p>
+<p><a class="btn" href="{{ url_for('register') }}">Create free account</a> <a class="btn ghost" href="{{ url_for('about') }}">How it works</a></p></div>
+<div class="sample"><p class="meta">Example message, flagged as spam</p>
+<p class="msg">Congratulations! You have won a <mark>free</mark> <mark>prize</mark>. <mark>Claim</mark> your <mark>reward</mark> now, <mark>urgent</mark>: reply <mark>WIN</mark> to <mark>800</mark>.</p>
+<p class="verdict spam">Likely spam</p></div>
+</section>
+<section class="cols">
+<div><h3>Emails and SMS</h3><p>Check either type. Every check is saved to your account.</p></div>
+<div><h3>Shows the reason</h3><p>Suspicious words are highlighted, so you can see why.</p></div>
+<div><h3>Your history</h3><p>Review or delete past checks anytime.</p></div>
+</section>
+{% endblock %}

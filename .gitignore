@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+spamguard.db
+.secret_key
+.env

@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Check a message · SpamGuard{% endblock %}
+{% block body %}
+<h1>Check a message</h1>
+<p class="meta">{{ total }} checked so far, {{ spam }} flagged as spam.</p>
+<form method="post" class="check"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
+<label>Message type<select name="kind"><option value="email">Email</option><option value="sms">SMS</option></select></label>
+<label>Message text<textarea name="text" rows="7" maxlength="5000" placeholder="Paste the email or SMS here" required></textarea></label>
+<button class="btn">Check message</button></form>
+{% if result %}<section class="result {{ 'spam' if result.spam else 'ham' }}">
+<p class="verdict {{ 'spam' if result.spam else 'ham' }}">{{ 'Likely spam' if result.spam else 'Looks normal' }} <span>{{ result.conf }}% confidence</span></p>
+<p class="msg">{% for t, f in result.parts %}{% if f %}<mark>{{ t }}</mark>{% else %}{{ t }}{% endif %}{% endfor %}</p>
+<p class="meta">Saved to your history.</p></section>{% endif %}
+{% endblock %}

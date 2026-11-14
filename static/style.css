@@ -1,0 +1,28 @@
+:root{--bg:#f6f8fb;--ink:#14213d;--mute:#5b6678;--line:#d9e0ea;--accent:#0f6e8c;--spam:#c62828;--spam-bg:#fde8e8;--ham:#17803d;--ham-bg:#e4f5ea;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1626;--ink:#e8edf5;--mute:#98a4b8;--line:#26334a;--accent:#4fb3d1;--spam:#ff8a80;--spam-bg:#3a1a1e;--ham:#6fd392;--ham-bg:#14301f;--card:#16213a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 20px}a{color:var(--accent)}
+.nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:14px 24px;border-bottom:1px solid var(--line)}
+.nav nav,.nav form{display:flex;gap:18px;align-items:center;margin:0}.nav nav a{text-decoration:none;color:var(--ink)}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.1;letter-spacing:-.03em;margin:0 0 16px}h2{margin-top:28px}
+.lead{font-size:19px;color:var(--mute);max-width:46ch}.meta{color:var(--mute);font-size:14px}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;padding:11px 20px;border-radius:6px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}.btn.small{padding:6px 14px}
+.link{background:none;border:0;color:var(--accent);font:inherit;cursor:pointer;padding:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:24px 0 40px}
+.sample,.result,.check,.auth{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+mark{background:var(--spam-bg);color:var(--spam);padding:0 3px;border-radius:3px;font-weight:600}
+.msg{white-space:pre-wrap;word-break:break-word}.verdict{font-weight:700}.verdict.spam{color:var(--spam)}.verdict.ham{color:var(--ham)}
+.verdict span{font-weight:400;color:var(--mute);margin-left:8px;font-size:14px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;border-top:1px solid var(--line);padding-top:28px}
+.auth,.check{display:grid;gap:14px}.auth{max-width:420px;margin:20px auto}
+label{display:grid;gap:6px;font-weight:600;font-size:14px}
+input,select,textarea{font:inherit;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.result{margin-top:24px;border-left:6px solid}.result.spam{border-color:var(--spam)}.result.ham{border-color:var(--ham)}
+.flash{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);padding:10px 14px;border-radius:6px}
+.page{max-width:68ch}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;background:var(--card)}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:30px 20px}
+@media(max-width:720px){.hero,.cols{grid-template-columns:1fr}}
