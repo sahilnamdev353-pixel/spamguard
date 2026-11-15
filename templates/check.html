@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Check a message · SpamGuard{% endblock %}
+{% block body %}{% from "_gauge.html" import gauge %}
+<h1>Check a message</h1><p class="meta">Paste an email or SMS, or upload a screenshot or PDF.</p>
+{% if result %}<section class="card result {{ 'spam' if result.spam else 'ham' }}"><div class="rgrid">
+<div>{{ gauge(result.pct, result.spam) }}<p class="verdict {{ 'spam' if result.spam else 'ham' }} center">{{ 'Likely spam' if result.spam else 'Looks normal' }}</p><p class="meta center">{{ result.conf }}% confidence</p></div>
+<div><p class="meta">Your message ({{ result.kind|upper }})</p><p class="msg">{% for t, f in result.parts %}{% if f %}<mark>{{ t }}</mark>{% else %}{{ t }}{% endif %}{% endfor %}</p>
+<p class="meta">Highlighted words pushed the score towards spam. Saved to your <a href="{{ url_for('history') }}">history</a>.</p></div></div></section>{% endif %}
+<div class="two wide">
+<form method="post" class="card form"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
+<label>Message type<select name="kind">{% for k, l in [('email','Email'),('sms','SMS'),('screenshot','Screenshot'),('pdf','PDF')] %}<option value="{{ k }}" {{ 'selected' if k == kind|default('email') }}>{{ l }}</option>{% endfor %}</select></label>
+<label>Message text<textarea name="text" rows="9" maxlength="5000" placeholder="Paste the email or SMS here" required>{{ prefill|default('') }}</textarea></label>
+<button class="btn">Check message</button></form>
+<form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data" class="card form"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
+<h2>Or upload a file</h2><p class="meta">Screenshot (PNG, JPG, WEBP) or PDF, up to 5 MB. PDFs: first 5 pages.</p>
+<label>Choose file<input type="file" name="file" accept=".png,.jpg,.jpeg,.webp,.bmp,.pdf,image/*,application/pdf" required></label>
+<button class="btn">Upload and check</button><p class="meta">The file is not saved. Only the extracted text and its result are stored.</p></form></div>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% macro gauge(pct, spam) %}
+<div class="gauge" data-gauge="{{ pct }}" role="img" aria-label="Spam probability {{ pct|round|int }} percent">
+<svg viewBox="0 0 200 110" aria-hidden="true"><path class="g-bg" d="M20 100 A80 80 0 0 1 180 100" pathLength="100"/><path class="g-fg {{ 'spam' if spam else 'ham' }}" d="M20 100 A80 80 0 0 1 180 100" pathLength="100" style="stroke-dasharray:{{ pct }} 100"/></svg>
+<div class="g-read"><span class="g-num">{{ pct|round|int }}%</span><span class="g-cap">spam probability</span></div></div>
+{% endmacro %}

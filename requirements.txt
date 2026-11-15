@@ -2,3 +2,7 @@ flask
 scikit-learn
 pandas
 joblib
+pytesseract
+pypdf
+pypdfium2
+Pillow

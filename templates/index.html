@@ -1,16 +1,24 @@
 {% extends "base.html" %}{% block title %}SpamGuard: check emails and SMS for spam{% endblock %}
-{% block body %}
-<section class="hero">
-<div><h1>Know if a message is spam before you click.</h1>
-<p class="lead">Paste an email or SMS. SpamGuard tells you if it looks like spam and marks the words that gave it away.</p>
-<p><a class="btn" href="{{ url_for('register') }}">Create free account</a> <a class="btn ghost" href="{{ url_for('about') }}">How it works</a></p></div>
-<div class="sample"><p class="meta">Example message, flagged as spam</p>
+{% block body %}{% from "_gauge.html" import gauge %}
+<section class="hero"><div><span class="tag">Machine learning spam detector</span>
+<h1>Know if a message is spam before you click.</h1>
+<p class="lead">Paste an email or SMS. SpamGuard scores it, shows how likely it is to be spam, and highlights the words that gave it away.</p>
+<p class="cta"><a class="btn" href="{{ url_for('register') }}">Create free account</a><a class="btn ghost" href="{{ url_for('login') }}">Log in</a></p></div>
+<div class="card sample"><p class="meta">Example message</p>
 <p class="msg">Congratulations! You have won a <mark>free</mark> <mark>prize</mark>. <mark>Claim</mark> your <mark>reward</mark> now, <mark>urgent</mark>: reply <mark>WIN</mark> to <mark>800</mark>.</p>
-<p class="verdict spam">Likely spam</p></div>
-</section>
-<section class="cols">
-<div><h3>Emails and SMS</h3><p>Check either type. Every check is saved to your account.</p></div>
-<div><h3>Shows the reason</h3><p>Suspicious words are highlighted, so you can see why.</p></div>
-<div><h3>Your history</h3><p>Review or delete past checks anytime.</p></div>
-</section>
+{{ gauge(96, true) }}<p class="verdict spam center">Likely spam</p></div></section>
+<section class="numbers"><div><b>98.99%</b><span>test accuracy</span></div><div><b>0.94</b><span>spam recall</span></div><div><b>5,572</b><span>labelled messages in dataset</span></div></section>
+<section><h2>How it works</h2><div class="steps">
+<div class="card"><span class="n">1</span><h3>Paste</h3><p>Copy an email or SMS and paste it into the checker.</p></div>
+<div class="card"><span class="n">2</span><h3>Analyse</h3><p>The text is turned into TF-IDF features and scored by a Naive Bayes model.</p></div>
+<div class="card"><span class="n">3</span><h3>See why</h3><p>You get a spam score and the suspicious words are highlighted.</p></div></div></section>
+<section><h2>What you get</h2><div class="steps">
+<div class="card"><h3>Email and SMS</h3><p>Check either type and keep every result in your history.</p></div>
+<div class="card"><h3>A dashboard</h3><p>See how many messages you checked and how many were spam.</p></div>
+<div class="card"><h3>Secure accounts</h3><p>Hashed passwords, CSRF protection and private history.</p></div></div></section>
+<section class="faq"><h2>Questions</h2>
+<details><summary>Is the result always right?</summary><p>No. The model is accurate on its test data but can miss spam or flag a good message. Treat it as a second opinion.</p></details>
+<details><summary>What do you store?</summary><p>Your name, email, a hashed password, and each message you check with its result. You can delete any check from History.</p></details>
+<details><summary>Does it read my Gmail or phone?</summary><p>No. You paste the text yourself. Gmail connection is planned for a later version.</p></details>
+<details><summary>Does it work in Hindi or Hinglish?</summary><p>It was trained mostly on English SMS data, so Hindi and Hinglish results are less reliable.</p></details></section>
 {% endblock %}

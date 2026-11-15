@@ -1,13 +1,11 @@
-{% extends "base.html" %}{% block title %}Check a message · SpamGuard{% endblock %}
-{% block body %}
-<h1>Check a message</h1>
-<p class="meta">{{ total }} checked so far, {{ spam }} flagged as spam.</p>
-<form method="post" class="check"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
-<label>Message type<select name="kind"><option value="email">Email</option><option value="sms">SMS</option></select></label>
-<label>Message text<textarea name="text" rows="7" maxlength="5000" placeholder="Paste the email or SMS here" required></textarea></label>
-<button class="btn">Check message</button></form>
-{% if result %}<section class="result {{ 'spam' if result.spam else 'ham' }}">
-<p class="verdict {{ 'spam' if result.spam else 'ham' }}">{{ 'Likely spam' if result.spam else 'Looks normal' }} <span>{{ result.conf }}% confidence</span></p>
-<p class="msg">{% for t, f in result.parts %}{% if f %}<mark>{{ t }}</mark>{% else %}{{ t }}{% endif %}{% endfor %}</p>
-<p class="meta">Saved to your history.</p></section>{% endif %}
-{% endblock %}
+{% extends "base.html" %}{% block title %}Dashboard · SpamGuard{% endblock %}
+{% block body %}<h1>Hello, {{ g.user.name }}</h1><p class="meta">Here is a summary of your checks.</p>
+<div class="stats"><div class="card stat"><span>Total checked</span><b>{{ total }}</b></div><div class="card stat"><span>Spam found</span><b class="spam">{{ spam }}</b></div>
+<div class="card stat"><span>Normal</span><b class="ham">{{ ham }}</b></div><div class="card stat"><span>Spam rate</span><b>{{ rate }}%</b></div></div>
+<section class="card"><div class="head"><h2>Last 7 days</h2><p class="legend"><i class="s"></i>Spam <i class="h"></i>Normal</p></div>
+<div class="bars" role="img" aria-label="Messages checked per day, spam and normal">{% for c in chart %}<div class="bar" title="{{ c.day }}: {{ c.spam }} spam, {{ c.ham }} normal"><i class="s" style="height:{{ c.spam / top * 100 }}%"></i><i class="h" style="height:{{ c.ham / top * 100 }}%"></i></div>{% endfor %}</div>
+<div class="labels">{% for c in chart %}<span>{{ c.label }}<br>{{ c.total }}</span>{% endfor %}</div></section>
+<section class="card"><div class="head"><h2>Recent checks</h2><a href="{{ url_for('history') }}">View all</a></div>
+{% if not recent %}<p>No checks yet. <a href="{{ url_for('check') }}">Check your first message</a>.</p>{% else %}<div class="scroll"><table>
+{% for r in recent %}<tr><td class="nowrap">{{ r.created_at }}</td><td><span class="pill {{ 'spam' if r.is_spam else 'ham' }}">{{ 'Spam' if r.is_spam else 'Normal' }}</span></td><td>{{ r.content[:80] }}{% if r.content|length > 80 %}…{% endif %}</td></tr>{% endfor %}</table></div>{% endif %}
+<p><a class="btn" href="{{ url_for('check') }}">Check a message</a></p></section>{% endblock %}
